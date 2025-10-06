@@ -1,0 +1,332 @@
+# MID TERM I MASTER SHEET
+
+# How to get help with a command
+?mean
+# to enter a list of numbers
+c (0, 0, 6, 0)
+# To save as e.g. ts_vec
+ts_vec = c(0, 0, 6, 0)
+
+# To view ts_vec 
+print(ts_vec)
+
+# To take the sum
+sum(ts_vec)
+
+# To take the mwan 
+mean(ts_vec)
+
+# To get the length of a vector 
+length(ts_vec)
+
+# Entering lists of numbers as avector, saying it as vec, 
+vec = c(1, 2, 3, 2, 1)
+
+# Acessing a specific elemens of a vecotr 
+vec[1]
+
+# How to acess the last element of a vector
+vec[length(vec)]
+
+# Example A.1 in R: 
+delta_x = -50
+beta_1 = 0.27
+delta_Y = beta_1 * delta_x
+print(delta_Y)
+
+# This is an easier way to do 
+200 * 0.27
+
+
+
+# General ways to calculate percent changes 
+x_new = 6
+x_old = 4
+pct_change = (x_new - x_old) / x_old * 100
+print(pct_change)
+
+# Calculating sample variance/standard deviation
+x_vec = c(3, 2, 4)
+# Step one: subtract the mean off from the data
+x_vec - mean(x_vec)
+# Step two: square the results
+(x_vec - mean(x_vec))**2
+# Step three; sum the results, divide by n - 1
+SX2 = sum((x_vec - mean(x_vec))**2) / (length(x_vec) - 1)
+print(SX2)
+
+# Now, get the sample standard deviation
+SX = sqrt(SX2)
+
+# Easier R way to get the sample standard deviation
+var(x_vec) # Sample variance
+sd(x_vec) # Sample standard deviation 
+
+
+# Calculation of sample covariacne 
+xvec = c(2, 3, 3)
+yvec = c(3, 1, 3)
+
+# Step one: demenna the data 
+xvec2 = xvec - mean(xvec)
+yvec2 = yvec - mean(yvec)
+
+# Step two: multiply together, sum, divide by n - 1
+sum(xvec * yvec2) / (3-1)
+
+# Easier way cor
+cor(xvec, yvec)
+
+# Exponential and logrithmic functions
+exp(10) 
+log(10)
+exp(log(10)) #exponential and logrithmic function
+log(exp(10))
+
+# Qestion 12, PS 1
+# (Xnew - Xold) / Xold
+(3.2 - 1.3) / 1.3
+
+#Question 9, PS 1
+# beta_1 * Delta monothinc 
+1.3 * 2.3
+
+# Sept 8 
+# Exploring the Gaussian distrobution (continuous) in R
+n = 10 # Sample size
+xvec = rnorm(n, mean = 0, sd = 1) # Draw of 1000 observation from Bell curve
+hist(xvec, probability = TRUE) # Plot empirical distrobution 
+curve(dnorm(x, mean = 0, sd = 1) add = TRUE) # Plot continious distribution
+
+# Expected value of a six sided die
+die_values = 1:6
+p_vec = rep(1/6, 6)
+sum(die_values * 1/6) 
+
+# Expected value of a die roll squared
+sum(die_values^2 * p_vec)
+
+# Expected values of all sin of die roll
+sum(sin(die_values) * p_vec)
+
+# Sept 10 
+# Calculating E[E*Y]
+xvec = c(1, 2, 1)
+yvec = c(2, 3, 3)
+pvec = c(1/2, 1/4, 1/4)
+
+# Step one: multiply xvec and yvec
+# Step two: multiply by pvec 
+# Step three: sum together
+sum(xvec * yvec * pvec)
+
+# Calculating E[X * Y^2]
+sum(xvec * yvec^2 * pvec)
+
+# Calculating E[log(X) * exp(Y)]
+sum(log(xvec) *exp(yvec) *pvec)
+
+# Calculate E[log(X + Y)]
+sum(log(xvec + yvec) + pvec)
+
+# E[x * Y] for a coin flip
+xvec = c(0, 0, 1, 1)
+yvec = c(0, 1, 0, 1)
+pvec = rep(1/4, 4)
+sum(xvec * yvec * pvec)
+
+# NOTE: this is a SAMPLE varaicne, NOT population!!!
+var()
+
+# PS2, Q6
+xvec = 1:6
+pvec = rep(1/6, 6)
+sum(xvec * pvec)
+
+# Sept 15
+# Calculating covariance of two independant coin flips 
+xvec = c(0, 0, 1, 1)
+yvec = c(0, 1, 0, 1)
+pvec = rep(1/4, 4)
+
+# Calculating expected values
+EXY = sum(xvec * yvec * pvec)
+EX = sum(xvec * pvec)
+EY = sum(yvec * pvec)
+
+# Calculating covariance
+covXY = EXY - EX * EY
+
+# Example of conditional expecations 
+# install.packages('wooldridge')
+# install.packages('rgl')
+# install.packages('MASS')
+
+library(wooldridge)
+install.packages(rgl)
+install.packages(MASS)
+
+?wage1 # To get information on dataset
+View(wage1) # How to view dataset
+plot(wage1$educ, wage1$wage) # Use dataset$varablename
+kde = kde2d(wage1$educ, wage1$wage, n = 50) # n controls grid resolution
+persp3d(kde$x, kde$y, kde$z, col ="lightblue")
+
+
+# Sept 17# Illustrating relationship between wage and education
+library(wooldridge)
+
+View(wage1)
+
+# To view variables in a dataset
+ls(wage1)
+?wage1
+
+# Remember: datasetname$varname
+plot(wage1$educ, wage1$wage,main = "wagevseduc", xlab = 'Education', ylab = 'Wage') # Plot command in R
+
+# Fit a linear econometric model
+reg = lm(wage ~ educ, data = wage1)
+
+# Plot the model
+abline(reg, col = 'blue')
+
+# Time sereis data
+?consump
+
+plot(consump$year, consump$i3) #vPlot of interest rates vs year
+lines(consump$year, consump$i3) 
+
+# Panel sereis data
+?crime4
+
+plot(crimes4$year, crimes4$crmrte)
+
+# PS3, Q12
+xvec = c(1.1, 1.3, 1.8, 1.1, 1.7)
+yvec = c(1, 1.4, 1.9, 1.3, 1.2)
+cor(xvec, yvec)
+
+#PS3 Q17
+xvec = c(3, 6, 7, 3, 3)
+var(xvec)
+
+#PS3 Q1
+xvec = c(7.6, 5.8, 8.2)
+pvec = c(1/2, 1/4, 1/4)
+sum(xvec * pvec) # E[X]
+sum(sin(xvec) * pvec) # E[sin(X)]
+
+# Sept 22
+# Load wooldridge package
+library(wooldridge)
+
+# Relationship between wage and educ
+View(wage1)
+plot(wage1$educ, wage1$wagw)
+wage1$wage
+
+# mean and sample variance of wage
+mena(wage1$wage)
+var(wage1$wage)
+
+# Covariance between wage and educ
+cov(wage1$wagw, wage1$educ) # Sample covariacne
+cor(wage1$wage, wage1$educ) # Sample correlation
+
+# Example with colGPA and hsGPA
+?gpa1
+plot(gpa1$hsGPA, gpa1$colGPA, xlim = c(0, 4), ylim = c(0,4))
+beta0 = 1.5
+beta1 = 0.5
+
+# Expected value of colGPA given hsGPA using beta0 and beta1
+pred_colGPA = function(hsgpa){
+  beta0 + beta1 * hsgpa
+}
+
+# Plot out our hypothetical predictions
+curve(pred_colGPA, from = 0, to = 4, add = TRUE, col = 'purple')
+
+predictions = pred_colGPA(gpa1$hsGPA) # Predictions for colGPAs
+residuals = gpa1$colGPA - predictions # How much our predictions missed
+segments(gpa1$hsGPA, gpa1$colGPA, gpa1$hsGPA, predictions, col = 'red')
+
+# Mean squared error
+sum(residuals**2)
+
+# Ordinary least squares. Guaranteed to have the lowest MSE
+reg = lm(colGPA ~ hsGPA, data = gpa1)
+abline(reg, col = 'green')
+sum(reg$residuals**2)
+
+# Class Sept 28
+library(wooldridge)
+
+# Estimate OLS estimates in SLR: 
+# wage = beta0 + beta1 * educ + U
+
+?wage1
+
+beta1hat = cov(wage1$educ, wage1$wage) / var(wage1$educ) # SXY / SX^2
+beta0hat = mean(wage1$wage) - mean(wage1$educ) * beta1hat # Ybar - Xbar * b1hat
+
+# Illustration of fitted values
+plot(wage1$educ, wage1$wage)
+reg = lm(wage ~ educ, data = wage1)
+abline(reg, col = 'red')
+
+# Showing that the OLS estimates minimize SSR 
+b0guess = 4
+b1guess = 0.4
+SSR_guess = sum((wage1$wage - b0guess - b1guess * wage1$educ)^2)
+
+SSR = sum((wage1$wage - beta0hat - beta1hat * wage1$educ)^2)
+
+# Example 2.3
+?ceosal1
+b1hat = cov(ceosal1$roe, ceosal1$salary) / var(ceosal1$roe)
+b0hat = mean(ceosal1$salary) - mean(ceosal1$roe) * b1hat
+
+reg = lm(salary ~ roe, data = ceosal1) # lm(y ~ x, data = ...)
+reg$coefficients # Better way to view OLS coefficients
+
+# Class Oct 1
+library(wooldridge)
+
+# Question 13, PS 4
+View(bwght)
+
+cov(bwght$motheduc, bwght$bwght, use = "p")
+
+# Recap
+plot(ceosal1$roe, ceosal1$salary)
+
+# Estimating the OLS regression line
+reg = lm(salary ~ roe, data = ceosal1)
+reg$coefficients
+abline(reg, col = 'red')
+
+# Example 2.4
+reg = lm(wage ~ educ, data = wage1)
+reg$coefficients
+b1hat = reg$coefficients[2] # Save b1hat as OLS estimate
+b0hat = reg$coefficients[1]
+
+# Value of a college education
+4 * 0.5413593 # Don't copy and paste from the console!!! 
+4 * b1hat
+
+# Predicted wage for college graduate
+b0hat + b1hat * 16
+
+# Example 2.5
+reg = lm(voteA ~ shareA, data = vote1)
+b0hat = reg$coefficients[1]
+b1hat = reg$coefficients[2]
+
+# Part 1
+b1hat * 20
+
+# Part 2
+b0hat + b1hat * 5
